@@ -1,0 +1,39 @@
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APK下载</title>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var downloadButton = document.getElementById('download-apk');
+    var apkUrl = 'https://pan.ly93.cc/f/o4jkim/57N_6.0.0.apk'; // 确保您的APK文件下载地址是完整的URL
+
+    downloadButton.addEventListener('click', function() {
+        if (/android/i.test(navigator.userAgent)) {
+            // 安卓设备，尝试打开系统浏览器下载APK
+            var intentUrl = 'intent://' + encodeURIComponent(apkUrl) +
+                '#Intent;package=com.android.browser;scheme=http;end';
+            var iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = intentUrl;
+            document.body.appendChild(iframe);
+
+            // 等待一段时间后，如果Intent没有工作，则回退到直接下载
+            setTimeout(function() {
+                window.location.href = apkUrl;
+            }, 2000); // 增加等待时间，以便Intent有机会被处理
+        } else {
+            // 非安卓设备，直接下载
+            window.location.href = apkUrl;
+        }
+    });
+});
+</script>
+</head>
+<body>
+<button id="download-apk">下载APK</button>
+</body>
+</html>
+ 
