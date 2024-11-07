@@ -1,0 +1,33 @@
+ 
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>选择浏览器下载</title>
+<script>
+function openWithOtherBrowser() {
+    var downloadLink = 'pan.ly93.cc/f/o4jkim/57N_6.0.0.apk'; // 替换为你的下载链接
+    var intentURI = 'intent://' + downloadLink + 
+        '#Intent;scheme=http;action=android.intent.action.VIEW;end';
+
+    // 创建一个隐藏的iframe来打开Intent URI，这样不会改变当前页面的焦点
+    var iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = intentURI;
+    document.body.appendChild(iframe);
+
+    // 设置一个定时器，在一段时间后移除iframe
+    setTimeout(function() {
+        iframe.parentNode.removeChild(iframe);
+    }, 2000);
+}
+</script>
+</head>
+<body>
+
+<button onclick="openWithOtherBrowser()">选择浏览器下载</button>
+
+</body>
+</html>
+ 
