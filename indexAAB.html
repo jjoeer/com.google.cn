@@ -1,0 +1,120 @@
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copy Link to Clipboard and Show Image</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding-top: 50px;
+  }
+  #copyButton {
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  #myModal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  #modalContent {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+  #closeModal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  #closeModal:hover,
+  #closeModal:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<button id="copyButton">复制链接</button>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div id="modalContent" class="modal-content">
+    <span id="closeModal">&times;</span>
+    <p>链接已复制到剪贴板！</p>
+    <img src="https://www.helloimg.com/i/2024/11/07/672ccba8ef83b.jpg" alt="确认图片" style="width:100%;">
+    <button id="confirmButton">确定</button>
+  </div>
+</div>
+
+<script>
+  document.getElementById('copyButton').addEventListener('click', function() {
+    // 链接地址，这里假设是你要复制的链接
+    var link = 'http://example.com/download';
+
+    // 创建一个临时的input元素
+    var tempInput = document.createElement('input');
+    tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+    tempInput.value = link;
+
+    // 添加到DOM
+    document.body.appendChild(tempInput);
+
+    // 选择输入框中的内容
+    tempInput.select();
+    tempInput.setSelectionRange(0, tempInput.value.length);
+
+    // 执行复制命令
+    document.execCommand('copy');
+
+    // 移除临时input元素
+    document.body.removeChild(tempInput);
+
+    // 显示模态框
+    var modal = document.getElementById('myModal');
+    modal.style.display = "block";
+  });
+
+  // 关闭模态框
+  var span = document.getElementById('closeModal');
+  span.onclick = function() {
+    var modal = document.getElementById('myModal');
+    modal.style.display = "none";
+  }
+
+  // 确定按钮点击事件
+  document.getElementById('confirmButton').addEventListener('click', function() {
+    var modal = document.getElementById('myModal');
+    modal.style.display = "none";
+    // 跳转到谷歌首页
+    window.location.href = 'https://www.google.com';
+  });
+
+  // 点击模态框外部也可以关闭模态框
+  window.onclick = function(event) {
+    var modal = document.getElementById('myModal');
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+</script>
+
+</body>
+</html>
+ 
