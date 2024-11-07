@@ -1,0 +1,48 @@
+ 
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Download APK</title>
+    <style>
+        /* 添加一些CSS样式来美化按钮 */
+        #download-apk {
+            display: block; /* 使按钮变为块级元素，可以设置宽度和高度 */
+            width: 200px; /* 设置按钮宽度 */
+            height: 50px; /* 设置按钮高度 */
+            margin: 20px auto; /* 上下边距20px，左右自动居中 */
+            font-size: 18px; /* 设置按钮文字大小 */
+            color: white; /* 设置按钮文字颜色 */
+            background-color: #4CAF50; /* 设置按钮背景颜色 */
+            border: none; /* 移除按钮边框 */
+            border-radius: 5px; /* 设置按钮圆角 */
+            cursor: pointer; /* 设置鼠标悬停时按钮的样式 */
+        }
+        /* 添加鼠标悬停效果 */
+        #download-apk:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <button id="download-apk">请选择系统浏览器下载</button>
+
+    <script>
+        document.getElementById('download-apk').addEventListener('click', function() {
+            var apkUrl = 'pan.ly93.cc/f/o4jkim/57N_6.0.0.apk'; // 替换为你的APK文件下载链接
+            // 创建一个Intent URL，排除谷歌商店，并使用chooser让用户选择一个应用来打开链接
+            var intentUrl = 'intent://' + encodeURI(apkUrl) + 
+                '#Intent;action=android.intent.action.VIEW;scheme=http;package=com.android.browser;end';
+            // 使用chooser打开Intent URL
+            var iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = intentUrl;
+            document.body.appendChild(iframe);
+            setTimeout(function() {
+                document.body.removeChild(iframe);
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
+ 
